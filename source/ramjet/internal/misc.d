@@ -1,4 +1,4 @@
-module xdc.common.misc;
+module ramjet.internal.misc;
 
 /* A compile-time evaluatable number->string conversion. */
 string itoa(long num)

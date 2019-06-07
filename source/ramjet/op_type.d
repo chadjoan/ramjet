@@ -1,4 +1,4 @@
-module xdc.parser_builder.op_type;
+module ramjet.op_type;
 
 private struct OpTypeTable
 {

@@ -1,6 +1,6 @@
-module xdc.parser_builder.grammar_node;
+module ramjet.grammar_node;
 
-import xdc.parser_builder.op_type;
+import ramjet.op_type;
 
 struct DCode
 {
@@ -15,7 +15,7 @@ struct DCode
 	
 	this(size_t startingIndentLevel, string rawCode)
 	{
-		import xdc.common.reindent;
+		import ramjet.internal.reindent;
 		code = rawCode;
         //code = reindent(startingIndentLevel, rawCode);
 	}

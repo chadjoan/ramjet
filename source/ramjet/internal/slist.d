@@ -16,7 +16,7 @@ Authors: $(HTTP erdani.com, Andrei Alexandrescu)
 
 $(SCRIPT inhibitQuickIndex = 1;)
 */
-module xdc.common.slist;
+module ramjet.internal.slist;
 
 ///
 @safe unittest

@@ -1,4 +1,4 @@
-module xdc.common.reindent;
+module ramjet.internal.reindent;
 
 string reindent(size_t startingIndentLevel, string rawCode)
 {

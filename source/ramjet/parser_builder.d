@@ -1,6 +1,6 @@
-module xdc.parser_builder.parser_builder;
+module ramjet.parser_builder;
 
-import xdc.common.slist;
+import ramjet.internal.slist;
 import std.stdio;
 /+
 import std.array;
@@ -8,8 +8,8 @@ import std.conv;
 import std.range;
 +/
 
-import xdc.parser_builder.op_type;
-import xdc.parser_builder.grammar_node;
+import ramjet.op_type;
+import ramjet.grammar_node;
 
 /+
 Unitary Expression: an expression that, given an input string, has only one
@@ -621,7 +621,7 @@ assert(!p2.parse("b"));
 
 	string toDCode(size_t indentLevel, string name)
 	{
-		import xdc.common.reindent;
+		import ramjet.internal.reindent;
 		assert(name != null);
 
 		enforce(root !is null, "Must define a grammar before calling 'toDCode', see 'beginGrammarDefinition' and 'endGrammarDefinition'.");
@@ -674,7 +674,7 @@ string makeParser()
 void main()
 {
 	import std.stdio;
-		import xdc.common.reindent;
+	import ramjet.internal.reindent;
 	auto foo = makeParser();
 	writeln("Before reindentation:");
 	writeln(foo);
