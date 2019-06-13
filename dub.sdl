@@ -1,0 +1,15 @@
+name "ramjet"
+description "Generates fast and versatile parsers."
+authors "Chad Joan"
+copyright "Copyright © 2019, Chad Joan"
+license "BSL-1.0"
+configuration "application" {
+	targetName "ramjet-exec-tests"
+	targetType "executable"
+	targetPath "bin"
+}
+configuration "library" {
+	targetName "ramjet"
+	targetType "library"
+	targetPath "lib"
+}
