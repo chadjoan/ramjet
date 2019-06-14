@@ -107,4 +107,40 @@ Intended features and wishlist:
 	compile-time and then use `mixin(...);` statements to compile them into
 	fast native machine code (and all without extra compilation passes in the
 	caller's build scripts).
+* This project should eventually fork into two:
+	* A parser generator library
+		* Responsible for most of the capabilities above
+		* Use is entirely programmatic: grammars are defined by calling
+			a sequence of D methods.
+		* Low-level interface. You wouldn't want to use this to write parsers
+			directly; it will probably be quite clunky. But that's OK: it is
+			intended to be a building block for other technologies rather than
+			for direct use.
+		* Other libraries (ex: 'Pegged', or regex modules) would be able to
+			use this library to implement their own syntax without worrying
+			about how to optimize parser generation.
+		* This layer might behave similar to the notion of Parser Combinators,
+			except that I can't promise that it will look exactly like that.
+			I intend to have some way to modularize grammars and reuse grammar
+			components, but it might have (probably reasonable) limitations
+			compared to true Parser Combinators.  It's easy to imagine
+			combining grammars, but combining (at runtime) separate parsers
+			that have already been optimized with opaque things like DFAs and
+			packrat symbol tables... seems unpleasant, or at least antithetical
+			to fast parsing.
+	* A syntax for defining grammars
+		* This is the layer of abstraction that most people would want to work
+			in when custom parsers are needed.
+		* We'd write grammars in this syntax, and then this layer would parse
+			those grammars and feed that information into the parser generator
+			library.
+		* I intend to bootstrap it by using the parser generator to generate a
+			parser for this syntax.
+		* The rest of the code will integrate the grammar parser with the
+			the parser generator.
+	* Existing libraries (like Pegged) currently tend to implement the above
+		two stages as one indivisible component. That doesn't hurt anyone, but
+		I think there might be an opportunity here to make the ecosystem a
+		little nicer: if I manage to make a really nice parser generator, I
+		want other parsing libraries to have access to the same capabilities.
 
