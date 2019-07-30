@@ -26,6 +26,9 @@ template GrammarNodes(CallersElemType)
 	alias GrammarNode Node;
 	alias Node[] ChildList;
 
+	// TODO: implement the automata module/subsystem.
+	//alias Automata = AutomataTypes!(CallersElemType);
+
 	abstract class GrammarNode
 	{
 		const OpType type;
@@ -424,6 +427,48 @@ template GrammarNodes(CallersElemType)
 			`;
 		}
 	}
+
+	/+
+	final class Longest : GrammarParent
+	{
+		this() { super(OpType.longest); }
+
+		protected override string dCodeBody(size_t indentLevel, ref string suffix, ref string[] symbolsById) const
+		{
+			assert(children.length == 1);
+
+			// TODO: Gotta figure out how to make a higher-level interface
+			// for operators/grammar nodes that can be passed into something
+			// like a templated free function that generates DFAs by looking
+			// up node-types in a table (or something like that, no inheritance
+			// should be necessary here) to determine what to generate for
+			// each GrammarNode.
+			// Like, the whole GrammarNode hierarchy might need to change or
+			// get replaced by that lightweight Directed-Acyclic-Graph-with-inheritence
+			// abstraction that I want to make.
+			//Automata.Dfa dfa = ... TODO
+			DCode childCode = children[0].toDCode(indentLevel, symbolsById);
+			suffix ~= childCode.code;
+
+			// This code probably needs to change.
+			return `
+				/* Repetition */
+				size_t newCursor = cursor;
+				while ( true )
+				{
+					auto m = `~childCode.entryFuncName~
+								`(inputRange, newCursor, ubound);
+					if ( !m.successful )
+						break;
+
+					newCursor = m.end;
+				}
+
+				return Match.success(inputRange, cursor, newCursor);
+			`;
+		}
+	}
+	+/
 
 	Node flattenLiterals( Node n )
 	{

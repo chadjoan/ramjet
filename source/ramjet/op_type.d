@@ -94,6 +94,8 @@ private OpTypeTable defineOpTypes()
 	t.define("fullRepeat"       , "FullRepeat"      );
 	t.define("defineRule"       , "DefineRule"      );
 	t.define("matchRule"        , "MatchRule"       );
+	t.define("longest"          , "Longest"         );
+	t.define("shortest"         , "Shortest"        );
 	//t.define("dfaNode"); ?? has all "dfaTransition" children.
 	//t.define("dfaTransition"); child[0] == the GrammarNode that must match. child[1] == the next state to move into.
 
